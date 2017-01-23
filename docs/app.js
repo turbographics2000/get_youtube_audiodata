@@ -64,7 +64,7 @@ function stopVideo() {
 function DrawGraph() {
     requestAnimationFrame(DrawGraph);
     // 非同期なので具体的には1フレームくらいずれる
-    chrome.runtime.sendMessage('necjgeoojajimfodpdjlpnmkdobdlfia', 'get audio data', (data) => {
+    chrome.runtime.sendMessage('necjgeoojajimfodpdjlpnmkdobdlfia', 'get audio data', function(data, arg2, arg3) {
         obj.geometry.dispose();
         console.log('data', data);
         // obj.geometry = new THREE.TorusKnotGeometry( //小数をかけてるのは値を小さくして、3Dオブジェクトのサイズを小さくするため
