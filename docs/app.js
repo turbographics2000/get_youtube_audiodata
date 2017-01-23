@@ -60,14 +60,15 @@ function DrawGraph() {
     // 非同期なので具体的には1フレームくらいずれる
     chrome.runtime.sendMessage('necjgeoojajimfodpdjlpnmkdobdlfia', 'get audio data', (data) => {
         obj.geometry.dispose();
-        obj.geometry = new THREE.TorusKnotGeometry( //小数をかけてるのは値を小さくして、3Dオブジェクトのサイズを小さくするため
-            Math.round(data[0] * 2.0), //全体的な大きさ
-            Math.round(data[1] * 0.3), //チューブの太さ
-            Math.round(40), //クネクネの進む方向に対してなん分割するか
-            Math.round(8), //チューブ方向に何分割するか
-            Math.round(data[2] * 0.3), //なんかクネクネ具合が変わる数値その1
-            Math.round(2) //なんかクネクネ具合が変わる数値その2
-        );
+        console.log('data', data);
+        // obj.geometry = new THREE.TorusKnotGeometry( //小数をかけてるのは値を小さくして、3Dオブジェクトのサイズを小さくするため
+        //     Math.round(data[0] * 2.0), //全体的な大きさ
+        //     Math.round(data[1] * 0.3), //チューブの太さ
+        //     Math.round(40), //クネクネの進む方向に対してなん分割するか
+        //     Math.round(8), //チューブ方向に何分割するか
+        //     Math.round(data[2] * 0.3), //なんかクネクネ具合が変わる数値その1
+        //     Math.round(2) //なんかクネクネ具合が変わる数値その2
+        // );
     });
     controls.update();
     renderer.render(scene, camera);
