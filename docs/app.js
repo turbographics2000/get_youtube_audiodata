@@ -63,7 +63,7 @@ function stopVideo() {
 
 function DrawGraph() {
     requestAnimationFrame(DrawGraph);
-    chrome.runtime.sendMessage('necjgeoojajimfodpdjlpnmkdobdlfia', 'get audio data', function(spectrums) {
+    chrome.runtime.sendMessage(extId, 'get audio data', function(spectrums) {
         obj.geometry.dispose();
         obj.geometry = new THREE.TorusKnotGeometry( //小数をかけてるのは値を小さくして、3Dオブジェクトのサイズを小さくするため
             Math.round(spectrums[0] * 2.0), //全体的な大きさ
