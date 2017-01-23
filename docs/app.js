@@ -51,6 +51,9 @@ function onPlayerReady(event) {
 
 //var done = false;
 function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        chrome.runtime.sendMessage(extId, 'ready');
+    }
     // if (event.data == YT.PlayerState.PLAYING && !done) {
     // }
 }
