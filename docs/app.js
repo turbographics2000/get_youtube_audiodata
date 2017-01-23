@@ -48,10 +48,12 @@ function onPlayerReady(event) {
     DrawGraph();
 }
 
-//var done = false;
+let inited = false;
+
 function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
+    if (event.data === YT.PlayerState.PLAYING && !inited) {
         chrome.runtime.sendMessage(extId, 'ready');
+        inited = true;
     }
     // if (event.data == YT.PlayerState.PLAYING && !done) {
     // }
