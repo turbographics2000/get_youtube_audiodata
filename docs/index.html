@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <script src="three.min.js"></script>
+<script src="OrbitControls.js"></script>
 
 <body>
     <div id="player"></div>
@@ -13,13 +14,27 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         let player;
         const vid = 'bHQqvYy5KYo';
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth, window.innerHeight, 0.1, 10000);
+        camera.position.set(0, 0, 300);
+        const controls = new THREE.OrbitControls(camera);
         const scene = new THREE.Scene();
         const obj = new THREE.Mesh();
         obj.material = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             wireframe: true
         });
+        scene.add(camera);
         scene.add(obj);
+
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        })
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -53,15 +68,16 @@
         }
 
         function DrawGraph() {
-            var data = new Uint8Array(512);
+            requestAnimationFrame(DrawGraph);
             audioChannel.postMessage({
                 type: 'get audio data'
             });
-            requestAnimationFrame(DrawGraph);
+            controls.update();
+            renderer.render(scene, camera);
         }
 
         audioChannel.onmessage = (evt) => {
-            const msg = evt.data
+            const msg = evt.data;
             if (msg.type === 'audio-data') {
                 const data = data.audioData;
                 obj.geometry.dispose();
