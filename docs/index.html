@@ -52,7 +52,6 @@
 
         const DrawGraph = () => {
             var data = new Uint8Array(512);
-            scene.remove(obj);
             audioChannel.postMessage({
                 type: 'get audio data'
             });
