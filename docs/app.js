@@ -1,3 +1,6 @@
+const extId = 'necjgeoojajimfodpdjlpnmkdobdlfia';
+chrome.runtime.sendMessage(extId, 'content tab handle');
+
 const tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -41,6 +44,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
+    chrome.runtime.sendMessage(extId, 'ready');
     event.target.playVideo();
     DrawGraph();
 }
