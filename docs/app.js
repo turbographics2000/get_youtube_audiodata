@@ -6,7 +6,9 @@ tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 let player;
+let inited = false;
 const vid = 'bHQqvYy5KYo';
+
 const renderer = new THREE.WebGLRenderer({
     antialias: true
 });
@@ -47,8 +49,6 @@ function onPlayerReady(event) {
     event.target.playVideo();
     DrawGraph();
 }
-
-let inited = false;
 
 function onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.PLAYING && !inited) {
