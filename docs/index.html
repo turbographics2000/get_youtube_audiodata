@@ -13,11 +13,13 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         let player;
         const vid = 'bHQqvYy5KYo';
+        const scene = new THREE.Scene();
         const obj = new THREE.Mesh();
         obj.material = new THREE.MeshBasicMaterial({
             color: 0xffffff,
             wireframe: true
         });
+        scene.add(obj);
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -46,11 +48,11 @@
             // }
         }
 
-        const stopVideo = () => {
+        function stopVideo() {
             player.stopVideo();
         }
 
-        const DrawGraph = () => {
+        function DrawGraph() {
             var data = new Uint8Array(512);
             audioChannel.postMessage({
                 type: 'get audio data'
