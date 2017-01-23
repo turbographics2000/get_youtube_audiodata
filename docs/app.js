@@ -41,10 +41,6 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    audioChannel.postMessage({
-        type: 'ready',
-        vid: vid
-    });
     event.target.playVideo();
     DrawGraph();
 }
