@@ -1,4 +1,4 @@
-const extId = 'necjgeoojajimfodpdjlpnmkdobdlfia';
+const extId = 'bbchnfmcdcokmipmngjjniflkoakncbl';
 chrome.runtime.sendMessage(extId, 'content tab handle');
 
 const tag = document.createElement('script');
