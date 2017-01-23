@@ -19,7 +19,6 @@
     <div id="player"></div>
 
     <script>
-        const audioChannel = new BroadcastChannel('youtubeAudioDataChannel');
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -83,17 +82,8 @@
 
         function DrawGraph() {
             requestAnimationFrame(DrawGraph);
-            audioChannel.postMessage({
-                type: 'get audio data'
-            });
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        audioChannel.onmessage = (evt) => {
-            const msg = evt.data;
-            if (msg.type === 'audio-data') {
-                const data = data.audioData;
+            // 非同期なので具体的には1フレームくらいずれる
+            chrome.runtime.sendMessage('get audio data', (data) => {
                 obj.geometry.dispose();
                 obj.geometry = new THREE.TorusKnotGeometry( //小数をかけてるのは値を小さくして、3Dオブジェクトのサイズを小さくするため
                     Math.round(data[0] * 2.0), //全体的な大きさ
@@ -103,7 +93,9 @@
                     Math.round(data[2] * 0.3), //なんかクネクネ具合が変わる数値その1
                     Math.round(2) //なんかクネクネ具合が変わる数値その2
                 );
-            }
+            });
+            controls.update();
+            renderer.render(scene, camera);
         }
     </script>
 </body>
