@@ -44,8 +44,8 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-    chrome.runtime.sendMessage(extId, 'ready');
     event.target.playVideo();
+    chrome.runtime.sendMessage(extId, 'ready');
     DrawGraph();
 }
 
